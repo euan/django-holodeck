@@ -1,8 +1,10 @@
 import uuid
 
-from django.contrib.auth.models import User
 from django.db import models
+from django.conf import settings
+
 from holodeck.utils import get_widget_type_choices, load_class_by_string
+
 import xlwt
 
 
@@ -12,7 +14,7 @@ def generate_key():
 
 class Dashboard(models.Model):
     name = models.CharField(max_length=255)
-    owner = models.ForeignKey(User, null=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
     share_key = models.CharField(
         max_length=32,
         unique=True,
