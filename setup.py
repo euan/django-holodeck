@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='holodeck',
+    name='django-holodeck',
     version='0.1.1',
     description='Django based simple dashboard system.',
     long_description = open('README.rst', 'r').read() + open('AUTHORS.rst', 'r').read() + open('CHANGELOG.rst', 'r').read(),
@@ -16,11 +16,6 @@ setup(
         'xlwt',
     ],
     include_package_data=True,
-    entry_points={
-        'console_scripts': [
-            'holodeck = holodeck.logan_runner:main',
-        ],
-    },
     classifiers=[
         "Programming Language :: Python",
         "License :: OSI Approved :: BSD License",
