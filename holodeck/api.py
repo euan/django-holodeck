@@ -14,7 +14,7 @@ def store(request):
     TODO: Needs a lot of work, security, validation etc.
     """
     if request.method == 'POST':
-        data = request.raw_post_data
+        data = request.body
         data = json.loads(base64.b64decode(data).decode('zlib'))
 
         # Get the Metric for provided api_key, otherwise fail with Forbidden.
