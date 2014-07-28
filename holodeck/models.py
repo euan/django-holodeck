@@ -86,7 +86,7 @@ class Metric(models.Model):
         timestamps = list(set([sample.timestamp for sample in samples]))
         timestamps.sort(reverse=True)
         for i, timestamp in enumerate(timestamps):
-            worksheet.write(i + 1, 0, timestamp, date_style)
+            worksheet.write(i + 1, 0, timestamp.replace(tzinfo=None), date_style)
 
         # Set timestamp column width.
         # Each character's approximated width is 256
