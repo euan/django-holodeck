@@ -206,3 +206,38 @@ class SampleDeviation(Widget):
         })
 
         return context
+        
+class BarChart(Widget):
+    name = 'BarChart'
+    template_name = 'holodeck/widgets/bar_chart.html'
+
+    def get_context(self, metric):
+        context = {
+            'metric': metric,
+            'width': '8'
+        }
+
+        groups = self.get_groups(metric)
+
+        if not groups:
+            context['no_samples'] = True
+            return context
+
+        grouped_samples = []
+        group_maxes = []
+        sample_count = 20
+        for group in groups:
+            samples = [(int(time.mktime(sample.timestamp.timetuple()) * 1000),
+                        sample.integer_value)
+                       for sample in metric.sample_set.filter(
+                           string_value=group
+                       ).order_by('-timestamp')[:sample_count]]
+            grouped_samples.append((group, samples))
+            group_maxes.append(max([sample[1] for sample in samples]))
+        samples = json.dumps([{'label': group[0], 'data': group[1]}
+                             for group in grouped_samples])
+        context.update({
+            'samples': samples,
+            'y_max': max(group_maxes) * 1.025,
+        })
+        return context
