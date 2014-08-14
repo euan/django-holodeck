@@ -1,0 +1,62 @@
+{% extends 'holodeck/widgets/base.html' %}
+
+{% load i18n %}
+
+{% block widget %}
+
+<div id="chart{{ metric.id }}" style="height: 100%; width: 100%;">
+    <span class="loading">{% trans "Loading data..." %}</span>
+</div>
+<!-- ############ Added by TAG ##########-->
+<script type="text/javascript">
+(function basic_bars(container, horizontal) {            
+  // Draw the graph
+  Flotr.draw(
+    container,
+    {{ samples|safe }},
+    {
+      grid: {
+          tickColor: '#f1f1f1',
+          labelMargin: 5,
+          verticalLines: false,
+          horizontalLines: true,
+          outlineWidth: 0,
+      },
+      shadowSize: 3,
+      bars : {
+        order : 1,
+        show : true,
+        align : "center",
+        barWidth : 36500000
+      },
+      yaxis: {
+        min: 0,
+        max: {{ y_max }}
+      },
+      xaxis: {
+        mode: "time"
+      },
+      mouse: {
+                track: true,
+                lineColor: "black",
+                relative: true,
+                position: "n",
+                sensibility: 10,
+                trackFormatter: function(obj){ dt = new Date(parseInt(obj.x)); return dt  + ' - ' + obj.y; }
+            },
+      colors: ["#058dc7", "#f36a67", "#90c7a0", "#eba44c", "#fedd74"],
+      legend: {
+                show: true,
+                position: "se",
+                backgroundColor: "#F3F3F3",
+                backgroundOpacity: 0.7,
+                labelBoxBorderColor: "#DDDDDD",
+                margin: 0,
+            },
+    }
+  );
+})(document.getElementById("chart{{ metric.id }}"));
+
+</script>
+
+{% endblock %}
