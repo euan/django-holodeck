@@ -61,7 +61,7 @@ class Metric(models.Model):
 
     def __unicode__(self):
         return self.name
-    
+
     @property
     def widget(self):
         return load_class_by_string(self.widget_type)()
@@ -134,7 +134,7 @@ class Sample(models.Model):
     integer_value = models.IntegerField(
         default=0
     )
-    string_value = models.CharField(max_length=64)
+    string_value = models.TextField()
     timestamp = models.DateTimeField()
 
     class Meta:
