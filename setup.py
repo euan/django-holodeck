@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-holodeck',
-    version='0.1.2',
+    version='0.1.3',
     description='Django based simple dashboard system.',
     long_description = open('README.rst', 'r').read() + open('AUTHORS.rst', 'r').read() + open('CHANGELOG.rst', 'r').read(),
     author='Shaun Sephton',
